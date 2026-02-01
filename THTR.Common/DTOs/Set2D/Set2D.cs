@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace THTR.Common.DTOs.ClientUIDTOs
+namespace THTR.Common.DTOs.Set2D
 {
 
     public class Set2D 

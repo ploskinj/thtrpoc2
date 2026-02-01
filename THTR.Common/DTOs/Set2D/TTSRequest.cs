@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace THTR.Common.DTOs.ClientUIDTOs
+namespace THTR.Common.DTOs.Set2D
 {
     public class TTSRequest
     {
