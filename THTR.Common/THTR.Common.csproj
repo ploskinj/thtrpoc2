@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="DTOs\ClientUI\" />
     <Folder Include="DTOs\Conversation\" />
+    <Folder Include="HTTPClients\" />
   </ItemGroup>
 
 </Project>
