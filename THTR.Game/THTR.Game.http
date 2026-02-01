@@ -1,0 +1,6 @@
+@THTR.Game_HostAddress = http://localhost:5268
+
+GET {{THTR.Game_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="THTR.Client.Web/THTR.Client.Web.csproj" />
   <Project Path="THTR.Common/THTR.Common.csproj" />
-  <Project Path="THTR.GameServer/THTR.GameServer.csproj" />
+  <Project Path="THTR.Game/THTR.Game.csproj" Id="ea6f20b5-230b-43fb-95a4-8959f3d05595" />
+  <Project Path="THTR.Persist/THTR.Persist.csproj" Id="9e3d8a8d-55c9-4e7e-a229-0e7b3e693ca1" />
 </Solution>
