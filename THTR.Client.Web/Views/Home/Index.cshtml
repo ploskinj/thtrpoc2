@@ -1,8 +1,25 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Welcome to THTR!";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+Welcome to the Ploskina Memetic Engineering THTR Demo. 
+
+THTR is a next generation browser game with state of the art 2D graphics technology.
+
+<button id="btn_edit_avatar" >Customize Avatar</button>
+
+<script type="module">
+
+    import { _modalManager } from './js/modals/ModalManager.js'
+
+    $(function () {
+        $("#btn_edit_avatar").click(function() {
+            _modalManager.open('EditAvatar');
+        });
+    });
+
+
+</script>
+
+
+

@@ -11,4 +11,8 @@
     <Folder Include="wwwroot\js\classes\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\THTR.Common\THTR.Common.csproj" />
+  </ItemGroup>
+
 </Project>

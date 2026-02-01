@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace THTR.Common.Constants
+namespace THTR.Common
 {
-    internal class ConstantsAndEnums
+    public static class Constants
     {
+
+    }
+
+    public enum ConversantTypes
+    {
+        STAR = 0, 
+        EXTRA = 1
     }
 }

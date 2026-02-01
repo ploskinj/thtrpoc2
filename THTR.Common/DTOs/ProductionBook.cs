@@ -9,10 +9,11 @@ namespace THTR.Common.DTOs;
 public class ProductionBook
 {
     [JsonPropertyName("id")]
-    public int Id { get; set; }
+    public int id { get; set; }
 
     [JsonPropertyName("name")]
-    public string Name { get; set; } = string.Empty;
+    public string name { get; set; } = string.Empty;
+
     [JsonPropertyName("set")]
-    public Set2D Set { get; set; } 
+    public Set2D.Set2D set { get; set; }
 }
