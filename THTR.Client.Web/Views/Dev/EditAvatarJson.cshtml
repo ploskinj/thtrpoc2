@@ -1,0 +1,179 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="avatar_config_container">
+    <!-- Top Level Properties -->
+    <div class="top_level_properties">
+        <h3>Avatar Configuration</h3>
+        <div class="form_group">
+            <label for="txt_name">Name:</label>
+            <input type="text" id="txt_name" class="form_control" value="avatar images and animations">
+        </div>
+        <div class="form_group">
+            <label for="txt_sprite_sheet_dir">Sprite Sheet Directory:</label>
+            <input type="text" id="txt_sprite_sheet_dir" class="form_control" value="/images/avatars/male_color1/">
+        </div>
+        <div class="form_group">
+            <label for="txt_sex">Sex:</label>
+            <input type="text" id="txt_sex" class="form_control" value="male">
+        </div>
+        <div class="form_group">
+            <label for="txt_skin">Skin:</label>
+            <input type="number" id="txt_skin" class="form_control" value="0">
+        </div>
+    </div>
+
+    <!-- Directions Container -->
+    <div class="directions_section">
+        <h3>Directions & Animations</h3>
+        <button id="btn_new_direction" class="btn_primary">New Direction</button>
+        <div id="directions_container"></div>
+    </div>
+
+    <!-- Output Section -->
+    <div class="output_section">
+        <h3>JSON Output</h3>
+        <button id="btn_output_json" class="btn_primary">Generate JSON</button>
+        <textarea id="txt_output_json" class="form_control" rows="20"></textarea>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+      // Initialize with the example data
+      initialize_with_data();
+
+      function initialize_with_data() {
+        var initial_data = {
+          "name": "avatar images and animations",
+          "sprite_sheet_dir": "/images/avatars/male_color1/",
+          "sex": "male",
+          "skin": 0,
+          "animations": {
+            "north": {
+              "idle": {
+                "sprite_sheet_file_name": "idle_normal_loop1_N_strip8.png",
+                "num_frames": 8,
+                "frame_width": 64,
+                "hitboxes": []
+              }
+            }
+          }
+        };
+
+        // Set top level fields
+        $('#txt_name').val(initial_data.name);
+        $('#txt_sprite_sheet_dir').val(initial_data.sprite_sheet_dir);
+        $('#txt_sex').val(initial_data.sex);
+        $('#txt_skin').val(initial_data.skin);
+
+        // Load directions and animations
+        for (var direction_name in initial_data.animations) {
+          var direction_animations = initial_data.animations[direction_name];
+          add_direction(direction_name, direction_animations);
+        }
+      }
+
+      function create_animation_controls(animation_name, animation_data) {
+        var animation_controls = $('<div class="animation_controls"></div>');
+
+        animation_controls.append('<div class="form_group"><label>Animation Name:</label><input type="text" class="txt_animation_name form_control" value="' + animation_name + '"></div>');
+        animation_controls.append('<div class="form_group"><label>Sprite Sheet File Name:</label><input type="text" class="txt_sprite_sheet_file_name form_control" value="' + (animation_data.sprite_sheet_file_name || '') + '"></div>');
+        animation_controls.append('<div class="form_group"><label>Num Frames:</label><input type="number" class="txt_num_frames form_control" value="' + (animation_data.num_frames || 0) + '"></div>');
+        animation_controls.append('<div class="form_group"><label>Frame Width:</label><input type="number" class="txt_frame_width form_control" value="' + (animation_data.frame_width || 0) + '"></div>');
+        animation_controls.append('<button class="btn_remove_animation btn_danger">Remove Animation</button>');
+
+        return animation_controls;
+      }
+
+      function add_direction(direction_name, animations_data) {
+        direction_name = direction_name || '';
+        animations_data = animations_data || {};
+
+        var direction_container = $('<div class="direction_container"></div>');
+
+        var direction_header = $('<div class="direction_header"></div>');
+        direction_header.append('<label>Direction Name:</label>');
+        direction_header.append('<input type="text" class="txt_direction_name form_control" value="' + direction_name + '">');
+        direction_header.append('<button class="btn_add_animation btn_secondary">Add Animation</button>');
+        direction_header.append('<button class="btn_remove_direction btn_danger">Remove Direction</button>');
+
+        var animations_container = $('<div class="animations_container"></div>');
+
+        // Add existing animations
+        for (var anim_name in animations_data) {
+          var animation_controls = create_animation_controls(anim_name, animations_data[anim_name]);
+          animations_container.append(animation_controls);
+        }
+
+        direction_container.append(direction_header);
+        direction_container.append(animations_container);
+
+        $('#directions_container').append(direction_container);
+      }
+
+      // Event: New Direction
+      $('#btn_new_direction').on('click', function() {
+        add_direction('', {});
+      });
+
+      // Event: Add Animation (delegated)
+      $(document).on('click', '.btn_add_animation', function() {
+        var animations_container = $(this).closest('.direction_container').find('.animations_container');
+        var animation_controls = create_animation_controls('', {
+          sprite_sheet_file_name: '',
+          num_frames: 0,
+          frame_width: 0,
+          hitboxes: []
+        });
+        animations_container.append(animation_controls);
+      });
+
+      // Event: Remove Animation (delegated)
+      $(document).on('click', '.btn_remove_animation', function() {
+        $(this).closest('.animation_controls').remove();
+      });
+
+      // Event: Remove Direction (delegated)
+      $(document).on('click', '.btn_remove_direction', function() {
+        $(this).closest('.direction_container').remove();
+      });
+
+      // Event: Generate JSON
+      $('#btn_output_json').on('click', function() {
+        var output_data = {
+          name: $('#txt_name').val(),
+          sprite_sheet_dir: $('#txt_sprite_sheet_dir').val(),
+          sex: $('#txt_sex').val(),
+          skin: parseInt($('#txt_skin').val()),
+          animations: {}
+        };
+
+        // Iterate through each direction
+        $('.direction_container').each(function() {
+          var direction_name = $(this).find('.txt_direction_name').val();
+          if (direction_name) {
+            output_data.animations[direction_name] = {};
+
+            // Iterate through each animation in this direction
+            $(this).find('.animation_controls').each(function() {
+              var animation_name = $(this).find('.txt_animation_name').val();
+              if (animation_name) {
+                output_data.animations[direction_name][animation_name] = {
+                  sprite_sheet_file_name: $(this).find('.txt_sprite_sheet_file_name').val(),
+                  num_frames: parseInt($(this).find('.txt_num_frames').val()),
+                  frame_width: parseInt($(this).find('.txt_frame_width').val()),
+                  hitboxes: []
+                };
+              }
+            });
+          }
+        });
+
+        $('#txt_output_json').val(JSON.stringify(output_data, null, 2));
+      });
+    });
+</script>

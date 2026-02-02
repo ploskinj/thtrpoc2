@@ -1,0 +1,16 @@
+{
+  "name": "avatar images and animations",
+  "sprite_sheet_dir": "/images/avatars/male_color1/",
+  "sex": "male",
+  "skin": 0,
+  "animations": {
+    "north": {
+      "idle": {
+        "sprite_sheet_file_name": "idle_normal_loop1_N_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
+      }
+    }
+  }
+}
