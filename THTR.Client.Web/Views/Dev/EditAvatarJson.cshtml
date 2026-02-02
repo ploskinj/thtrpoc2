@@ -6,6 +6,11 @@
         <button id="btn_load">Load</button><br />
 
         <div class="form_group">
+            <label for="txt_frame_rate">Frame Rate (FPS):</label>
+            <input type="number" id="txt_frame_rate" class="form_control" value="4" min="1" max="60">
+        </div>
+
+        <div class="form_group">
             <label for="sel_current_direction">Current Direction:</label>
             <select id="sel_current_direction" class="form_control"></select>
         </div>
@@ -33,6 +38,12 @@
         </div>
     </div>
 
+    <!-- Animation Preview -->
+    <div class="preview_section" style="text-align: center; margin: 20px 0;">
+        <h3>Animation Preview</h3>
+        <canvas id="cnv_preview" width="64" height="64" style="border: 5px solid black; margin: 10px auto; display: block;"></canvas>
+    </div>
+
     <!-- Directions Container -->
     <div class="directions_section">
         <h3>Directions & Animations</h3>
@@ -54,6 +65,10 @@
       var current_direction = '';
       var current_animation = '';
       var loaded_data = null;
+      var animation_interval = null;
+      var current_frame = 0;
+      var canvas = document.getElementById('cnv_preview');
+      var ctx = canvas.getContext('2d');
 
       $('#btn_load').on('click', function() {
         $.ajax({
@@ -121,7 +136,70 @@
 
       $('#sel_current_animation').on('change', function() {
         current_animation = $(this).val();
+        start_animation_preview();
       });
+
+      $('#txt_frame_rate').on('change', function() {
+        if (current_animation) {
+          start_animation_preview();
+        }
+      });
+
+      function start_animation_preview() {
+        if (animation_interval) {
+          clearInterval(animation_interval);
+        }
+
+        current_frame = 0;
+
+        if (!loaded_data || !current_direction || !current_animation) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          return;
+        }
+
+        var animation_data = loaded_data.animations[current_direction][current_animation];
+        if (!animation_data || !animation_data.sprite_sheet_image) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          return;
+        }
+
+        var frame_rate = parseInt($('#txt_frame_rate').val()) || 4;
+        var frame_delay = 1000 / frame_rate;
+
+        animation_interval = setInterval(function() {
+          draw_current_frame();
+          current_frame = (current_frame + 1) % animation_data.num_frames;
+        }, frame_delay);
+
+        draw_current_frame();
+      }
+
+      function draw_current_frame() {
+        if (!loaded_data || !current_direction || !current_animation) {
+          return;
+        }
+
+        var animation_data = loaded_data.animations[current_direction][current_animation];
+        if (!animation_data || !animation_data.sprite_sheet_image) {
+          return;
+        }
+
+        var sprite_sheet = animation_data.sprite_sheet_image;
+        var frame_width = animation_data.frame_width;
+        var source_x = current_frame * frame_width;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (sprite_sheet.complete && sprite_sheet.naturalWidth > 0) {
+          ctx.drawImage(
+            sprite_sheet,
+            source_x, 0,
+            frame_width, 64,
+            0, 0,
+            64, 64
+          );
+        }
+      }
 
       initialize_with_data();
 
