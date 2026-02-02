@@ -10,6 +10,12 @@
         "num_frames": 8,
         "frame_width": 64,
         "hitboxes": []
+      },
+      "idle_blink": {
+        "sprite_sheet_file_name": "idle_normal_loop1_N_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
       }
     }
   }

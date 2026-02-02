@@ -8,6 +8,12 @@
     <!-- Top Level Properties -->
     <div class="top_level_properties">
         <h3>Avatar Configuration</h3>
+
+        <button id="btn_load">Load</button><br />
+        <div class="form-group">
+            
+        </div>
+
         <div class="form_group">
             <label for="txt_name">Name:</label>
             <input type="text" id="txt_name" class="form_control" value="avatar images and animations">
@@ -43,7 +49,45 @@
 
 <script>
     $(document).ready(function() {
-      // Initialize with the example data
+            
+    $('#btn_load').on('click', function() {
+      $.ajax({
+        url: '/avatars/avatar.json',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          
+          $('#directions_container').empty();
+          
+          $('#txt_name').val(data.name);
+          $('#txt_sprite_sheet_dir').val(data.sprite_sheet_dir);
+          $('#txt_sex').val(data.sex);
+          $('#txt_skin').val(data.skin);
+
+          var sprite_sheet_dir = data.sprite_sheet_dir;
+
+
+          for (var direction_name in data.animations) {
+            var direction_animations = data.animations[direction_name];
+            
+            for (var anim_name in direction_animations) {
+              var animation = direction_animations[anim_name];
+              if (animation.sprite_sheet_file_name) {
+                var img = new Image();
+                img.src = sprite_sheet_dir + animation.sprite_sheet_file_name;
+                animation.sprite_sheet_image = img;
+              }
+            }
+
+            add_direction(direction_name, direction_animations);
+          }
+        },
+        error: function(xhr, status, error) {
+          alert('Error loading avatar.json: ' + error);
+        }
+      });
+    });
+      
       initialize_with_data();
 
       function initialize_with_data() {
@@ -142,38 +186,40 @@
         $(this).closest('.direction_container').remove();
       });
 
-      // Event: Generate JSON
-      $('#btn_output_json').on('click', function() {
-        var output_data = {
-          name: $('#txt_name').val(),
-          sprite_sheet_dir: $('#txt_sprite_sheet_dir').val(),
-          sex: $('#txt_sex').val(),
-          skin: parseInt($('#txt_skin').val()),
-          animations: {}
-        };
+          // Event: Generate JSON
+    $('#btn_output_json').on('click', function() {
+      var output_data = {
+        name: $('#txt_name').val(),
+        sprite_sheet_dir: $('#txt_sprite_sheet_dir').val(),
+        sex: $('#txt_sex').val(),
+        skin: parseInt($('#txt_skin').val()),
+        animations: {}
+      };
 
-        // Iterate through each direction
-        $('.direction_container').each(function() {
-          var direction_name = $(this).find('.txt_direction_name').val();
-          if (direction_name) {
-            output_data.animations[direction_name] = {};
+      // Iterate through each direction
+      $('.direction_container').each(function() {
+        var direction_name = $(this).find('.txt_direction_name').val();
+        if (direction_name) {
+          output_data.animations[direction_name] = {};
 
-            // Iterate through each animation in this direction
-            $(this).find('.animation_controls').each(function() {
-              var animation_name = $(this).find('.txt_animation_name').val();
-              if (animation_name) {
-                output_data.animations[direction_name][animation_name] = {
-                  sprite_sheet_file_name: $(this).find('.txt_sprite_sheet_file_name').val(),
-                  num_frames: parseInt($(this).find('.txt_num_frames').val()),
-                  frame_width: parseInt($(this).find('.txt_frame_width').val()),
-                  hitboxes: []
-                };
-              }
-            });
-          }
-        });
-
-        $('#txt_output_json').val(JSON.stringify(output_data, null, 2));
+          // Iterate through each animation in this direction
+          $(this).find('.animation_controls').each(function() {
+            var animation_name = $(this).find('.txt_animation_name').val();
+            if (animation_name) {
+              output_data.animations[direction_name][animation_name] = {
+                sprite_sheet_file_name: $(this).find('.txt_sprite_sheet_file_name').val(),
+                num_frames: parseInt($(this).find('.txt_num_frames').val()),
+                frame_width: parseInt($(this).find('.txt_frame_width').val()),
+                hitboxes: []
+                // Note: sprite_sheet_image is intentionally omitted from JSON output
+              };
+            }
+          });
+        }
       });
+
+      $('#txt_output_json').val(JSON.stringify(output_data, null, 2));
     });
+ });
+
 </script>
