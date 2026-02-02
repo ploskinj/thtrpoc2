@@ -1,17 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-<div class="avatar_config_container">
+﻿<div class="avatar_config_container">
     <!-- Top Level Properties -->
     <div class="top_level_properties">
         <h3>Avatar Configuration</h3>
 
         <button id="btn_load">Load</button><br />
-        <div class="form-group">
-            
+
+        <div class="form_group">
+            <label for="sel_current_direction">Current Direction:</label>
+            <select id="sel_current_direction" class="form_control"></select>
+        </div>
+
+        <div class="form_group">
+            <label for="sel_current_animation">Current Animation:</label>
+            <select id="sel_current_animation" class="form_control"></select>
         </div>
 
         <div class="form_group">
@@ -49,45 +50,79 @@
 
 <script>
     $(document).ready(function() {
-            
-    $('#btn_load').on('click', function() {
-      $.ajax({
-        url: '/avatars/avatar.json',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data) {
-          
-          $('#directions_container').empty();
-          
-          $('#txt_name').val(data.name);
-          $('#txt_sprite_sheet_dir').val(data.sprite_sheet_dir);
-          $('#txt_sex').val(data.sex);
-          $('#txt_skin').val(data.skin);
 
-          var sprite_sheet_dir = data.sprite_sheet_dir;
+      var current_direction = '';
+      var current_animation = '';
+      var loaded_data = null;
 
+      $('#btn_load').on('click', function() {
+        $.ajax({
+          url: '/avatars/avatar.json',
+          method: 'GET',
+          dataType: 'json',
+          success: function(data) {
 
-          for (var direction_name in data.animations) {
-            var direction_animations = data.animations[direction_name];
-            
-            for (var anim_name in direction_animations) {
-              var animation = direction_animations[anim_name];
-              if (animation.sprite_sheet_file_name) {
-                var img = new Image();
-                img.src = sprite_sheet_dir + animation.sprite_sheet_file_name;
-                animation.sprite_sheet_image = img;
+            loaded_data = data;
+
+            $('#directions_container').empty();
+            $('#sel_current_direction').empty();
+            $('#sel_current_animation').empty();
+
+            $('#txt_name').val(data.name);
+            $('#txt_sprite_sheet_dir').val(data.sprite_sheet_dir);
+            $('#txt_sex').val(data.sex);
+            $('#txt_skin').val(data.skin);
+
+            var sprite_sheet_dir = data.sprite_sheet_dir;
+
+            for (var direction_name in data.animations) {
+              var direction_animations = data.animations[direction_name];
+
+              $('#sel_current_direction').append('<option value="' + direction_name + '">' + direction_name + '</option>');
+
+              for (var anim_name in direction_animations) {
+                var animation = direction_animations[anim_name];
+                if (animation.sprite_sheet_file_name) {
+                  var img = new Image();
+                  img.src = sprite_sheet_dir + animation.sprite_sheet_file_name;
+                  animation.sprite_sheet_image = img;
+                }
               }
+
+              add_direction(direction_name, direction_animations);
             }
 
-            add_direction(direction_name, direction_animations);
+            if ($('#sel_current_direction option').length > 0) {
+              $('#sel_current_direction').val($('#sel_current_direction option:first').val()).trigger('change');
+            }
+          },
+          error: function(xhr, status, error) {
+            alert('Error loading avatar.json: ' + error);
           }
-        },
-        error: function(xhr, status, error) {
-          alert('Error loading avatar.json: ' + error);
+        });
+      });
+
+      $('#sel_current_direction').on('change', function() {
+        current_direction = $(this).val();
+        $('#sel_current_animation').empty();
+
+        if (loaded_data && current_direction && loaded_data.animations[current_direction]) {
+          var direction_animations = loaded_data.animations[current_direction];
+
+          for (var anim_name in direction_animations) {
+            $('#sel_current_animation').append('<option value="' + anim_name + '">' + anim_name + '</option>');
+          }
+
+          if ($('#sel_current_animation option').length > 0) {
+            $('#sel_current_animation').val($('#sel_current_animation option:first').val()).trigger('change');
+          }
         }
       });
-    });
-      
+
+      $('#sel_current_animation').on('change', function() {
+        current_animation = $(this).val();
+      });
+
       initialize_with_data();
 
       function initialize_with_data() {
@@ -108,13 +143,11 @@
           }
         };
 
-        // Set top level fields
         $('#txt_name').val(initial_data.name);
         $('#txt_sprite_sheet_dir').val(initial_data.sprite_sheet_dir);
         $('#txt_sex').val(initial_data.sex);
         $('#txt_skin').val(initial_data.skin);
 
-        // Load directions and animations
         for (var direction_name in initial_data.animations) {
           var direction_animations = initial_data.animations[direction_name];
           add_direction(direction_name, direction_animations);
@@ -147,7 +180,6 @@
 
         var animations_container = $('<div class="animations_container"></div>');
 
-        // Add existing animations
         for (var anim_name in animations_data) {
           var animation_controls = create_animation_controls(anim_name, animations_data[anim_name]);
           animations_container.append(animation_controls);
@@ -159,12 +191,10 @@
         $('#directions_container').append(direction_container);
       }
 
-      // Event: New Direction
       $('#btn_new_direction').on('click', function() {
         add_direction('', {});
       });
 
-      // Event: Add Animation (delegated)
       $(document).on('click', '.btn_add_animation', function() {
         var animations_container = $(this).closest('.direction_container').find('.animations_container');
         var animation_controls = create_animation_controls('', {
@@ -176,50 +206,44 @@
         animations_container.append(animation_controls);
       });
 
-      // Event: Remove Animation (delegated)
       $(document).on('click', '.btn_remove_animation', function() {
         $(this).closest('.animation_controls').remove();
       });
 
-      // Event: Remove Direction (delegated)
       $(document).on('click', '.btn_remove_direction', function() {
         $(this).closest('.direction_container').remove();
       });
 
-          // Event: Generate JSON
-    $('#btn_output_json').on('click', function() {
-      var output_data = {
-        name: $('#txt_name').val(),
-        sprite_sheet_dir: $('#txt_sprite_sheet_dir').val(),
-        sex: $('#txt_sex').val(),
-        skin: parseInt($('#txt_skin').val()),
-        animations: {}
-      };
+      $('#btn_output_json').on('click', function() {
+        var output_data = {
+          name: $('#txt_name').val(),
+          sprite_sheet_dir: $('#txt_sprite_sheet_dir').val(),
+          sex: $('#txt_sex').val(),
+          skin: parseInt($('#txt_skin').val()),
+          animations: {}
+        };
 
-      // Iterate through each direction
-      $('.direction_container').each(function() {
-        var direction_name = $(this).find('.txt_direction_name').val();
-        if (direction_name) {
-          output_data.animations[direction_name] = {};
+        $('.direction_container').each(function() {
+          var direction_name = $(this).find('.txt_direction_name').val();
+          if (direction_name) {
+            output_data.animations[direction_name] = {};
 
-          // Iterate through each animation in this direction
-          $(this).find('.animation_controls').each(function() {
-            var animation_name = $(this).find('.txt_animation_name').val();
-            if (animation_name) {
-              output_data.animations[direction_name][animation_name] = {
-                sprite_sheet_file_name: $(this).find('.txt_sprite_sheet_file_name').val(),
-                num_frames: parseInt($(this).find('.txt_num_frames').val()),
-                frame_width: parseInt($(this).find('.txt_frame_width').val()),
-                hitboxes: []
-                // Note: sprite_sheet_image is intentionally omitted from JSON output
-              };
-            }
-          });
-        }
+            $(this).find('.animation_controls').each(function() {
+              var animation_name = $(this).find('.txt_animation_name').val();
+              if (animation_name) {
+                output_data.animations[direction_name][animation_name] = {
+                  sprite_sheet_file_name: $(this).find('.txt_sprite_sheet_file_name').val(),
+                  num_frames: parseInt($(this).find('.txt_num_frames').val()),
+                  frame_width: parseInt($(this).find('.txt_frame_width').val()),
+                  hitboxes: []
+                };
+              }
+            });
+          }
+        });
+
+        $('#txt_output_json').val(JSON.stringify(output_data, null, 2));
       });
-
-      $('#txt_output_json').val(JSON.stringify(output_data, null, 2));
     });
- });
 
 </script>
