@@ -1,11 +1,16 @@
 ﻿class AvatarAnimationData {
     constructor() {
         this.animations = null;
+        this.loaded = false;
+        await this.load();
     }
 
     async load() {
-        await this.load_avatar_json();
-        await this.load_avatar_images();
+        if (!this.loaded) {
+            await this.load_avatar_json();
+            await this.load_avatar_images();
+            this.loaded = true;
+        }
     }
 
     async load_avatar_images() {
@@ -74,4 +79,9 @@
     }
 }
 
-export const _avatarAnimationData = new AvatarAnimationData();
+const _avatarAnimationData = new AvatarAnimationData();
+
+// Execution pauses here until load() finishes
+await _avatarAnimationData.load();
+
+export { _avatarAnimationData };

@@ -1,4 +1,6 @@
 ﻿import { ModalControllerBase } from '/js/modals/ModalControllerBase.js'
+import { _avatarAnimationData } from 'js/classes/AvatarAnimationData.js'
+import { Avatar } from 'js/classes/Avatar.js';
 
 
 /// -----
@@ -10,7 +12,7 @@ class Controller extends ModalControllerBase  {
     }
 
     open(callback) {
-        // Your open logic here
+        _avatarAnimationData.load();
     }
 
     close() {
