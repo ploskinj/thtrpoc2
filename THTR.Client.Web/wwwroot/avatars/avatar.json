@@ -1,11 +1,13 @@
 {
   "name": "avatar images and animations",
-  "sprite_sheet_dir": "/images/avatars/male_color1/",
+  "sprite_sheet_dir": "/images/avatars/{sex}_color{skin}/",
   "sex": "male",
-  "skin": 0,
+  "skin": 1,
   "animations": [
+
     {
       "atk_fist": {
+        "id": 0,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "atk_fist_{dir}_strip2.png",
@@ -14,6 +16,7 @@
     },
     {
       "atk_heavy": {
+        "id": 1,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "atk_heavy_{dir}_strip5.png",
@@ -22,6 +25,7 @@
     },
     {
       "atk_light": {
+        "id": 2,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "atk_light_{dir}_strip4.png",
@@ -30,6 +34,7 @@
     },
     {
       "dead": {
+        "id": 3,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "dead_strip1.png",
@@ -38,6 +43,7 @@
     },
     {
       "gettinghit": {
+        "id": 4,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "gettinghit_{dir}_strip1.png",
@@ -46,6 +52,7 @@
     },
     {
       "idle_aggro_loop1": {
+        "id": 5,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "idle_aggro_loop1_{dir}_strip8.png",
@@ -54,6 +61,7 @@
     },
     {
       "idle_aggro_loop2": {
+        "id": 6,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "idle_aggro_loop2_{dir}_strip8.png",
@@ -62,6 +70,7 @@
     },
     {
       "idle_normal_loop1": {
+        "id": 7,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "idle_normal_loop1_{dir}_strip8.png",
@@ -70,6 +79,7 @@
     },
     {
       "idle_normal_loop2": {
+        "id": 8,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "idle_normal_loop2_{dir}_strip8.png",
@@ -78,6 +88,7 @@
     },
     {
       "run_aggro": {
+        "id": 9,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "run_aggro_{dir}_strip6.png",
@@ -86,6 +97,7 @@
     },
     {
       "run_normal": {
+        "id": 10,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "run_normal_{dir}_strip6.png",
@@ -94,6 +106,7 @@
     },
     {
       "sitting": {
+        "id": 11,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "sitting_{dir}_strip1.png",
@@ -102,6 +115,7 @@
     },
     {
       "walk_aggro": {
+        "id": 12,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "walk_aggro_{dir}_strip4.png",
@@ -110,11 +124,14 @@
     },
     {
       "walk_normal": {
+        "id": 13,
         "frame_width": 64,
         "hitboxes": [],
         "sprite_sheet_file_name": "walk_normal_{dir}_strip4.png",
         "num_frames": 4
       }
     }
+
   ]
-  }
+
+}
