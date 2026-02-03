@@ -3,90 +3,118 @@
   "sprite_sheet_dir": "/images/avatars/male_color1/",
   "sex": "male",
   "skin": 0,
-  "animations": {
-    "north": {
-      "idle": {
-        "sprite_sheet_file_name": "idle_normal_loop1_N_strip8.png",
-        "num_frames": 8,
+  "animations": [
+    {
+      "atk_fist": {
         "frame_width": 64,
-        "hitboxes": []
-      },
-      "idle_aggro": {
-        "sprite_sheet_file_name": "idle_aggro_loop1_N_strip8.png",
-        "num_frames": 8,
-        "frame_width": 64,
-        "hitboxes": []
-      },
-      "idle_blink": {
-        "sprite_sheet_file_name": "idle_normal_loop2_N_strip8.png",
-        "num_frames": 8,
-        "frame_width": 64,
-        "hitboxes": []
+        "hitboxes": [],
+        "sprite_sheet_file_name": "atk_fist_{dir}_strip2.png",
+        "num_frames": 2
       }
     },
-
-    "south": {
-      "idle": {
-        "sprite_sheet_file_name": "idle_normal_loop1_S_strip8.png",
-        "num_frames": 8,
+    {
+      "atk_heavy": {
         "frame_width": 64,
-        "hitboxes": []
-      },
-      "idle_aggro": {
-        "sprite_sheet_file_name": "idle_aggro_loop1_S_strip8.png",
-        "num_frames": 8,
-        "frame_width": 64,
-        "hitboxes": []
-      },
-      "idle_blink": {
-        "sprite_sheet_file_name": "idle_normal_loop2_S_strip8.png",
-        "num_frames": 8,
-        "frame_width": 64,
-        "hitboxes": []
+        "hitboxes": [],
+        "sprite_sheet_file_name": "atk_heavy_{dir}_strip5.png",
+        "num_frames": 5
       }
     },
-
-    "east": {
-      "idle": {
-        "sprite_sheet_file_name": "idle_normal_loop1_E_strip8.png",
-        "num_frames": 8,
+    {
+      "atk_light": {
         "frame_width": 64,
-        "hitboxes": []
-      },
-      "idle_aggro": {
-        "sprite_sheet_file_name": "idle_aggro_loop1_E_strip8.png",
-        "num_frames": 8,
-        "frame_width": 64,
-        "hitboxes": []
-      },
-      "idle_blink": {
-        "sprite_sheet_file_name": "idle_normal_loop2_W_strip8.png",
-        "num_frames": 8,
-        "frame_width": 64,
-        "hitboxes": []
+        "hitboxes": [],
+        "sprite_sheet_file_name": "atk_light_{dir}_strip4.png",
+        "num_frames": 4
       }
     },
-
-    "west": {
-      "idle": {
-        "sprite_sheet_file_name": "idle_normal_loop1_W_strip8.png",
-        "num_frames": 8,
+    {
+      "dead": {
         "frame_width": 64,
-        "hitboxes": []
-      },
-      "idle_aggro": {
-        "sprite_sheet_file_name": "idle_aggro_loop1_W_strip8.png",
-        "num_frames": 8,
+        "hitboxes": [],
+        "sprite_sheet_file_name": "dead_strip1.png",
+        "num_frames": 1
+      }
+    },
+    {
+      "gettinghit": {
         "frame_width": 64,
-        "hitboxes": []
-      },
-      "idle_blink": {
-        "sprite_sheet_file_name": "idle_normal_loop2_W_strip8.png",
-        "num_frames": 8,
+        "hitboxes": [],
+        "sprite_sheet_file_name": "gettinghit_{dir}_strip1.png",
+        "num_frames": 1
+      }
+    },
+    {
+      "idle_aggro_loop1": {
         "frame_width": 64,
-        "hitboxes": []
+        "hitboxes": [],
+        "sprite_sheet_file_name": "idle_aggro_loop1_{dir}_strip8.png",
+        "num_frames": 8
+      }
+    },
+    {
+      "idle_aggro_loop2": {
+        "frame_width": 64,
+        "hitboxes": [],
+        "sprite_sheet_file_name": "idle_aggro_loop2_{dir}_strip8.png",
+        "num_frames": 8
+      }
+    },
+    {
+      "idle_normal_loop1": {
+        "frame_width": 64,
+        "hitboxes": [],
+        "sprite_sheet_file_name": "idle_normal_loop1_{dir}_strip8.png",
+        "num_frames": 8
+      }
+    },
+    {
+      "idle_normal_loop2": {
+        "frame_width": 64,
+        "hitboxes": [],
+        "sprite_sheet_file_name": "idle_normal_loop2_{dir}_strip8.png",
+        "num_frames": 8
+      }
+    },
+    {
+      "run_aggro": {
+        "frame_width": 64,
+        "hitboxes": [],
+        "sprite_sheet_file_name": "run_aggro_{dir}_strip6.png",
+        "num_frames": 6
+      }
+    },
+    {
+      "run_normal": {
+        "frame_width": 64,
+        "hitboxes": [],
+        "sprite_sheet_file_name": "run_normal_{dir}_strip6.png",
+        "num_frames": 6
+      }
+    },
+    {
+      "sitting": {
+        "frame_width": 64,
+        "hitboxes": [],
+        "sprite_sheet_file_name": "sitting_{dir}_strip1.png",
+        "num_frames": 1
+      }
+    },
+    {
+      "walk_aggro": {
+        "frame_width": 64,
+        "hitboxes": [],
+        "sprite_sheet_file_name": "walk_aggro_{dir}_strip4.png",
+        "num_frames": 4
+      }
+    },
+    {
+      "walk_normal": {
+        "frame_width": 64,
+        "hitboxes": [],
+        "sprite_sheet_file_name": "walk_normal_{dir}_strip4.png",
+        "num_frames": 4
       }
     }
-
+  ]
   }
-}
