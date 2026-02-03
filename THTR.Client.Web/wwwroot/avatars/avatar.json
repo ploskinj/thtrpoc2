@@ -11,12 +11,82 @@
         "frame_width": 64,
         "hitboxes": []
       },
+      "idle_aggro": {
+        "sprite_sheet_file_name": "idle_aggro_loop1_N_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
+      },
       "idle_blink": {
-        "sprite_sheet_file_name": "idle_normal_loop1_N_strip8.png",
+        "sprite_sheet_file_name": "idle_normal_loop2_N_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
+      }
+    },
+
+    "south": {
+      "idle": {
+        "sprite_sheet_file_name": "idle_normal_loop1_S_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
+      },
+      "idle_aggro": {
+        "sprite_sheet_file_name": "idle_aggro_loop1_S_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
+      },
+      "idle_blink": {
+        "sprite_sheet_file_name": "idle_normal_loop2_S_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
+      }
+    },
+
+    "east": {
+      "idle": {
+        "sprite_sheet_file_name": "idle_normal_loop1_E_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
+      },
+      "idle_aggro": {
+        "sprite_sheet_file_name": "idle_aggro_loop1_E_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
+      },
+      "idle_blink": {
+        "sprite_sheet_file_name": "idle_normal_loop2_W_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
+      }
+    },
+
+    "west": {
+      "idle": {
+        "sprite_sheet_file_name": "idle_normal_loop1_W_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
+      },
+      "idle_aggro": {
+        "sprite_sheet_file_name": "idle_aggro_loop1_W_strip8.png",
+        "num_frames": 8,
+        "frame_width": 64,
+        "hitboxes": []
+      },
+      "idle_blink": {
+        "sprite_sheet_file_name": "idle_normal_loop2_W_strip8.png",
         "num_frames": 8,
         "frame_width": 64,
         "hitboxes": []
       }
     }
+
   }
 }
