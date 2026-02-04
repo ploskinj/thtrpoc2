@@ -1,21 +1,113 @@
 ﻿
 
-<div id="div_avatar_container">
-    <div id="div_avatar_preview">
+<div class="avatar-editor">
+    <h1 class="avatar-editor__heading">Create your avatar</h1>
 
+    <div id="avatar_preview"></div>
+
+    <div class="form-group">
+        <label for="txt_handle" class="form-label">Handle</label>
+        <input type="text" id="txt_handle" class="form-control" />
     </div>
 
+    <div class="form-group">
+        <label for="ddl_body_type" class="form-label">Body Type</label>
+        <select id="ddl_body_type" class="form-control">
+            <option value="male">male</option>
+            <option value="female">female</option>
+        </select>
+    </div>
 
+    <div class="form-group">
+        <label for="ddl_skin" class="form-label">Skin</label>
+        <select id="ddl_skin" class="form-control">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="txa_backstory" class="form-label">Backstory: a little something about yourself you want to share with others.</label>
+        <textarea id="txa_backstory" class="form-control" rows="4"></textarea>
+    </div>
 </div>
 
-<input id="flood" />
-
 <script type="module">
+    import { _avatar_animation_data } from '/js/classes/AvatarAnimationData.js'
+    import { Avatar } from '/js/classes/Avatar.js'
+    let _avatar = new Avatar();
+    let _animation = null;    
+    
 
-    import { _avatarAnimationData } from '/js/classes/AvatarAnimationData.js'
+    
 
-    $(async function() {
-        await _avatarAnimationData.load();
+    $(function() {
+        $('#txt_handle').on('input', function() {
+            _avatar.handle = $(this).val();
+        });
+
+        $('#ddl_body_type').on('change', function() {
+            _avatar.sex = $(this).val();
+            updateAvatar();
+        });
+
+        $('#ddl_skin').on('change', function() {
+            _avatar.skin = parseInt($(this).val());
+            updateAvatar();
+        });
+
+        $('#txa_backstory').on('input', function() {
+            _avatar.backstory = $(this).val();
+        });        
+
+        updateAvatar();
     });
+
+    function updateAvatar() {
+        debugger;
+        _animation = _avatar_animation_data.animations.get(_avatar.sex).get(_avatar.skin).get("south").get("idle_normal_loop1");
+        instantiate_avatar();
+    }
+
+    function instantiate_avatar() {        
+
+        const $avatarPreview = $('#avatar_preview');
+        const canvas = $('<canvas>').attr({
+            width: _animation.frame_width,
+            height: _animation.frame_width
+        });
+
+        $avatarPreview.empty().append(canvas);
+
+        const ctx = canvas[0].getContext('2d');
+        let currentFrame = 0;
+        const fps = 6;
+        const frameInterval = 1000 / fps; // ~167ms per frame
+
+        function animate() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, _animation.frame_width, _animation.frame_width);
+
+            // Calculate source x position based on current frame
+            const sourceX = currentFrame * _animation.frame_width;
+
+            // Draw the current frame
+            ctx.drawImage(
+                _animation.img,
+                sourceX, 0,                           // source x, y
+                _animation.frame_width, _animation.frame_width,  // source width, height
+                0, 0,                                 // dest x, y
+                _animation.frame_width, _animation.frame_width   // dest width, height
+            );
+
+            // Advance to next frame
+            currentFrame = (currentFrame + 1) % _animation.num_frames;
+        }
+
+        // Start animation loop
+        setInterval(animate, frameInterval);
+    }
 
 </script>

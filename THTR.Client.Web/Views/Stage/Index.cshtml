@@ -1,0 +1,23 @@
+﻿
+<script type="module">
+
+    import { SetManager } from '/js/classes/SetManager.js'
+    import { SetAvatar } from '/js/classes/SetAvatar.js'
+    import { _avatar_animation_data } from '/js/classes/AvatarAnimationData.js'
+
+    let _set_manager = new SetManager();
+    let _set_avatar = new SetAvatar();
+
+    $(async function() {
+
+        _set_manager.instantiate();
+
+        
+        await _set_avatar.instantiate(_avatar_animation_data.animations.get("male").get(1).get("south"));
+
+        _set_manager.make_entrance(_set_avatar.get_sprite());
+
+
+    })
+
+</script>

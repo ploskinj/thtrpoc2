@@ -9,6 +9,15 @@
       "files": [
         "jquery.min.js"
       ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "pixi.js@8.13.2",
+      "destination": "wwwroot/lib/pixi.js/",
+      "files": [
+        "pixi.min.js",
+        "pixi.js"
+      ]
     }
   ]
 }
