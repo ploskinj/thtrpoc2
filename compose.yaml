@@ -1,0 +1,21 @@
+services:
+  thtr-client-web:
+    build:
+      context: .  # Solution root, not project folder
+      dockerfile: Dockerfile
+      target: web-runtime  # Specify which final stage
+    container_name: thtr-client-web-container    
+    ports:
+      - "2412:8080"
+    cpuset: "0"
+    restart: always
+    
+  thtr-persist:
+    build:
+      context: .  # Solution root
+      dockerfile: Dockerfile
+      target: persist-runtime  # Specify the persist stage
+    container_name: thtr-persist-container    
+    ports:
+      - "2724:8080"       
+    restart: always
