@@ -6,8 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Add this with your other service registrations
-builder.Services.AddSignalR();
-
+builder.Services.AddSignalR()
+    .AddMessagePackProtocol();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

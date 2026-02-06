@@ -12,6 +12,7 @@
     async start() {
         this._connection = new signalR.HubConnectionBuilder()
             .withUrl(this._hub_url)
+            .withHubProtocol(new signalR.protocols.msgpack.MessagePackHubProtocol()) 
             .withAutomaticReconnect()
             .configureLogging(signalR.LogLevel.Information)
             .build();
