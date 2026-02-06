@@ -1,7 +1,12 @@
+using THTR.Client.Web.Hubs;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add this with your other service registrations
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -25,5 +30,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+
+// Add this with your other endpoint mappings (after app.MapControllerRoute)
+app.MapHub<POCHub>("/poctick");
 
 app.Run();

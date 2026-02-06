@@ -18,6 +18,14 @@
         "pixi.min.js",
         "pixi.js"
       ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "@microsoft/signalr@latest",
+      "destination": "wwwroot/lib/microsoft/signalr/",
+      "files": [
+        "dist/browser/signalr.min.js"
+      ]
     }
   ]
 }
