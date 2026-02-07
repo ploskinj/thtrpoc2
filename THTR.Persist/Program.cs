@@ -1,3 +1,7 @@
+using Npgsql;
+using System.Data;
+using THTR.Common.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.Configure<THTRClientOptions>(
+    builder.Configuration.GetSection("THTR"));
+
+var connectionString = builder.Configuration["THTR:PostGreSConnectionString"];
+
+builder.Services.AddScoped<IDbConnection>(sp =>
+    new NpgsqlConnection(connectionString));
 
 var app = builder.Build();
 

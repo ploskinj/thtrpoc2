@@ -12,7 +12,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR()
     .AddMessagePackProtocol();
 
-builder.Services.Configure<THTROptions>(
+builder.Services.Configure<THTRClientOptions>(
     builder.Configuration.GetSection("THTR"));
 
 builder.Services.AddHttpClient();
@@ -21,7 +21,7 @@ builder.Services.AddSingleton<PersistHttpClient>(service_provider =>
     var http_client_factory = service_provider.GetRequiredService<IHttpClientFactory>();
     var http_client = http_client_factory.CreateClient();
 
-    var thtr_options = service_provider.GetRequiredService<IOptions<THTROptions>>().Value;
+    var thtr_options = service_provider.GetRequiredService<IOptions<THTRClientOptions>>().Value;
     var base_url = thtr_options.PersistUrl; // or whatever your property name is
 
     return new PersistHttpClient(http_client, base_url);

@@ -9,10 +9,10 @@ using THTR.Common.HttpClients;
 namespace THTR.Client.Web.Controllers
 {
     [Route("[controller]")]
-    public class HomeController(IOptions<THTROptions> options, PersistHttpClient persist_client) : Controller
+    public class HomeController(IOptions<THTRClientOptions> options, PersistHttpClient persist_client) : Controller
     {
         private readonly PersistHttpClient _persist_client = persist_client;
-        private readonly THTROptions _options = options.Value;
+        private readonly THTRClientOptions _options = options.Value;
 
         [HttpGet]
         [Route("~/")]      // This overrides the controller-level "Home" route for this action
