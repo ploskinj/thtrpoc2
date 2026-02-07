@@ -1,5 +1,5 @@
 ﻿
-import { ModalControllerBase } from '/js/modals/ModalControllerBase.js'
+import { ModalControllerBase } from './ModalControllerBase.js'
 
 class ModalManager {
     constructor() {

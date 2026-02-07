@@ -1,0 +1,25 @@
+{
+  "name": "thtrpoc2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+"scripts": {
+  "build-js": "cd THTR.Client.Web && esbuild \"wwwroot/js/THTR.main.js\" --bundle --minify --sourcemap --format=iife --target=esnext --outfile=\"wwwroot/js/THTR.main.min.js\"",
+"watch-js": "cd THTR.Client.Web && esbuild \"wwwroot/js/THTR.main.js\" --bundle --sourcemap --format=iife --target=esnext --outfile=\"wwwroot/js/THTR.main.min.js\" --watch"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ploskinj/thtrpoc2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ploskinj/thtrpoc2/issues"
+  },
+  "homepage": "https://github.com/ploskinj/thtrpoc2#readme",
+  "devDependencies": {
+    "esbuild": "^0.27.3"
+  }
+}

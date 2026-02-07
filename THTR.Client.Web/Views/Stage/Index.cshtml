@@ -1,12 +1,20 @@
 ﻿
 <script type="module">
 
-    import { THTR } from '/js/THTR.main.js';
     
-    let _set_manager = new THTR.SetManager();
-    let _set_avatar = new THTR.SetAvatar();
+    let _set_manager = null;
+    let _set_avatar = null;
 
     $(async function() {
+        
+        await THTR.Init();
+
+        console.log('THTR:', THTR);
+    console.log('SetManager:', THTR.SetManager);
+    console.log('typeof SetManager:', typeof THTR.SetManager);
+
+        _set_manager = new THTR.SetManager();
+        _set_avatar = new THTR.SetAvatar();
 
         _set_manager.instantiate();
 

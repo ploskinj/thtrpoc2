@@ -79,8 +79,4 @@
 }
 
 const _avatar_animation_data = new AvatarAnimationData();
-
-// Execution pauses here until load() finishes
-await _avatar_animation_data.load();
-
 export { _avatar_animation_data };

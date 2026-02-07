@@ -1,6 +1,6 @@
-﻿import { ModalControllerBase } from '/js/modals/ModalControllerBase.js'
-import { _avatar_animation_data } from '/js/classes/AvatarAnimationData.js'
-import { Avatar } from '/js/classes/Avatar.js';
+﻿import { ModalControllerBase } from '../ModalControllerBase.js'
+import { _avatar_animation_data } from '../../classes/AvatarAnimationData.js'
+import { Avatar } from '../../classes/Avatar.js';
 
 
 /// -----
