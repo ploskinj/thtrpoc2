@@ -19,6 +19,6 @@ services:
       dockerfile: Dockerfile
       target: persist-runtime  # Specify the persist stage
     environment:      
-      - ASPNETCORE_HTTP_PORTS=80
+      - ASPNETCORE_HTTP_PORTS=8080 
     container_name: thtr-persist-container        
     restart: always
