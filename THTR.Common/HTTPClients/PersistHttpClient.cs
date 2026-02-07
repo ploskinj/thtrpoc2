@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace THTR.Common.HttpClients;
@@ -17,11 +18,10 @@ public class PersistHttpClient
     }
 
     public async Task<string> health_check()
-    {
-        var response = await _http_client.GetAsync("/Persist/HealthCheck");
-        response.EnsureSuccessStatusCode();
-
-        var content = await response.Content.ReadAsStringAsync();
-        return content;
+    {    
+            var response = await _http_client.GetAsync("/Persist/HealthCheck");
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            return content;                
     }
 }

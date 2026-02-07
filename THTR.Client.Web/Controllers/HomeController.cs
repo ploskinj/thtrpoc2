@@ -32,9 +32,16 @@ namespace THTR.Client.Web.Controllers
         [HttpGet("HealthCheck")]
         public async Task<IActionResult> HealthCheck()
         {
-            string persist_result = await _persist_client.health_check();
+            try
+            {
+                string persist_result = await _persist_client.health_check();
+                return Json($"Persist: {persist_result}");
 
-            return Json(_options.PersistUrl);
+            }
+            catch (Exception ex)
+            {
+                return Json($"Im working but Persist is not: {_options.PersistUrl} {ex.Message}");
+            }            
         }
     }
 }
