@@ -12,6 +12,8 @@ services:
       - "80:1412"      
     cpuset: "0"
     restart: always
+    networks:
+      - thtr-network  
     
   thtr-persist:
     build:
@@ -23,6 +25,8 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080 
     container_name: thtr-persist-container        
     restart: always
+    networks:
+      - thtr-network 
     
 networks:
   thtr-network:
