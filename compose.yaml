@@ -6,7 +6,8 @@ services:
       target: web-runtime  # Specify which final stage
     container_name: thtr-client-web-container    
     ports:
-      - "2412:8080"
+      - "80:1412"
+      - "443:1412"
     cpuset: "0"
     restart: always
     
@@ -15,7 +16,7 @@ services:
       context: .  # Solution root
       dockerfile: Dockerfile
       target: persist-runtime  # Specify the persist stage
-    container_name: thtr-persist-container    
-    ports:
-      - "2724:8080"       
+    environment:
+      - ASPNETCORE_HTTP_PORTS=1724
+    container_name: thtr-persist-container        
     restart: always

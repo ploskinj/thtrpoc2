@@ -1,4 +1,7 @@
+using Microsoft.Extensions.Options;
 using THTR.Client.Web.Hubs;
+using THTR.Common.HttpClients;
+using THTR.Common.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,21 @@ builder.Services.AddControllersWithViews();
 // Add this with your other service registrations
 builder.Services.AddSignalR()
     .AddMessagePackProtocol();
+
+builder.Services.Configure<THTROptions>(
+    builder.Configuration.GetSection("THTR"));
+
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<PersistHttpClient>(service_provider =>
+{
+    var http_client_factory = service_provider.GetRequiredService<IHttpClientFactory>();
+    var http_client = http_client_factory.CreateClient();
+
+    var thtr_options = service_provider.GetRequiredService<IOptions<THTROptions>>().Value;
+    var base_url = thtr_options.PersistUrl; // or whatever your property name is
+
+    return new PersistHttpClient(http_client, base_url);
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -18,7 +36,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
@@ -33,5 +50,6 @@ app.MapControllerRoute(
 
 // Add this with your other endpoint mappings (after app.MapControllerRoute)
 app.MapHub<POCHub>("/poctick");
+
 
 app.Run();
