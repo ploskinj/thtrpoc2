@@ -22,3 +22,7 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080 
     container_name: thtr-persist-container        
     restart: always
+    
+networks:
+  thtr-network:
+    external: true

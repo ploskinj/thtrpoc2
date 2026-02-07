@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:17
+    container_name: thtr-data
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=THTRD3V97
+      - POSTGRES_DB=thtr-prod
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+      
+networks:
+  thtr-network:
+    external: true
+
+volumes:
+  postgres_data:
