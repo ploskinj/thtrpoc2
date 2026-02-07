@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
 "scripts": {
-  "build-js": "cd THTR.Client.Web && esbuild \"wwwroot/js/THTR.main.js\" --bundle --minify --sourcemap --format=iife --target=esnext --outfile=\"wwwroot/js/THTR.main.min.js\"",
-"watch-js": "cd THTR.Client.Web && esbuild \"wwwroot/js/THTR.main.js\" --bundle --sourcemap --format=iife --target=esnext --outfile=\"wwwroot/js/THTR.main.min.js\" --watch"
+  "build-js": "cd THTR.Client.Web && esbuild \"wwwroot/js/THTR.main.js\" --bundle --minify --format=iife --target=esnext --outfile=\"wwwroot/js/THTR.main.min.js\"",
+  "watch-js": "cd THTR.Client.Web && esbuild \"wwwroot/js/THTR.main.js\" --bundle --sourcemap --format=iife --target=esnext --outfile=\"wwwroot/js/THTR.main.min.js\" --watch"
 },
   "repository": {
     "type": "git",

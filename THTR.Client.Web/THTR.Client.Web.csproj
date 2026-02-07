@@ -19,9 +19,20 @@
   <ItemGroup>
     <ProjectReference Include="..\THTR.Common\THTR.Common.csproj" />
   </ItemGroup>
-	
+
+	<ItemGroup>
+		<!-- Don't copy source files -->
+		<Content Update="wwwroot\js\classes\**\*;wwwroot\js\modals\**\*;wwwroot\js\THTR.main.js"
+				 CopyToPublishDirectory="Never" />
+
+		<!-- DO copy the minified file -->
+		<Content Update="wwwroot\js\THTR.main.min.js"
+				 CopyToPublishDirectory="PreserveNewest" />
+	</ItemGroup>
+
 <Target Name="EsBuild" AfterTargets="Build">
     <Exec Command="npm run build-js" />
 </Target>
+
 
 </Project>
