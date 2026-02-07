@@ -33,4 +33,4 @@ class ModalManager {
     
 }
 
-export const _modalManager = new ModalManager();
+export const _modal_manager = new ModalManager();

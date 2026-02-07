@@ -19,4 +19,8 @@
     <ProjectReference Include="..\THTR.Common\THTR.Common.csproj" />
   </ItemGroup>
 
+<Target Name="BundleAndMinify" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+  <Exec Command="npx esbuild wwwroot/js/main.js --bundle --minify --outfile=wwwroot/js/main.min.js" />
+</Target>
+
 </Project>

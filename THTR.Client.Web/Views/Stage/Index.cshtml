@@ -1,36 +1,33 @@
 ﻿
 <script type="module">
 
-    import { SetManager } from '/js/classes/SetManager.js'
-    import { SetAvatar } from '/js/classes/SetAvatar.js'
-    import { _avatar_animation_data } from '/js/classes/AvatarAnimationData.js'
-    import { _signal_r_manager } from '/js/classes/SignalRManager.js'
-
-    let _set_manager = new SetManager();
-    let _set_avatar = new SetAvatar();
+    import { THTR } from '/js/THTR.main.js';
+    
+    let _set_manager = new THTR.SetManager();
+    let _set_avatar = new THTR.SetAvatar();
 
     $(async function() {
 
         _set_manager.instantiate();
 
         
-        await _set_avatar.instantiate(_avatar_animation_data.animations.get("male").get(1).get("south"));
+        await _set_avatar.instantiate(THTR.avatar_animation_data.animations.get("male").get(1).get("south"));
 
         _set_manager.make_entrance(_set_avatar.get_sprite());
 
-            _signal_r_manager.on_tick((timestamp) => {
+    THTR.signal_r_manager.on_tick((timestamp) => {
         console.log("Received tick:", timestamp);
     });
 
-    _signal_r_manager.on_connected(() => {
+    THTR.signal_r_manager.on_connected(() => {
         console.log("Connected to hub");
     });
 
-    _signal_r_manager.on_disconnected(() => {
+    THTR.signal_r_manager.on_disconnected(() => {
         console.log("Disconnected from hub");
     });
 
-    _signal_r_manager.start();
+    THTR.signal_r_manager.start();
 
     })
 

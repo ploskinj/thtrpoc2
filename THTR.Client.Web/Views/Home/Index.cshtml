@@ -10,11 +10,9 @@ THTR is a next generation browser game with state of the art 2D graphics technol
 
 <script type="module">
 
-    import { _modalManager } from './js/modals/ModalManager.js'
-
     $(function () {
         $("#btn_edit_avatar").click(function() {
-            _modalManager.open('EditAvatar');
+            THTR.modal_manager.open('EditAvatar');
         });
     });
 
