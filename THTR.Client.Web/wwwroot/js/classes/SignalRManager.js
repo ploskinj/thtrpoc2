@@ -1,4 +1,4 @@
-﻿import { _input_manager } from '/InputManager.js';
+﻿import { _input_manager } from './InputManager.js';
 class SignalRManager {
     constructor(hub_url) {
         this._connection = null;
@@ -81,6 +81,7 @@ class SignalRManager {
     get is_connected() {
         return this._is_connected;
     }
+
     async invoke_server_method(method_name, ...args) {
         if (this._is_connected) {
             try {
@@ -91,5 +92,6 @@ class SignalRManager {
             }
         }
     }
+
 }
 export const _signal_r_manager = new SignalRManager("/poctick");

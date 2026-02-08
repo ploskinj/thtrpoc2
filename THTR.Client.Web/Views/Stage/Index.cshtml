@@ -17,6 +17,7 @@
         _set_avatar = new THTR.SetAvatar();
 
         _set_manager.instantiate();
+        THTR.input_manager.instantiate_input();
 
         
         await _set_avatar.instantiate(THTR.avatar_animation_data.animations.get("male").get(1).get("south"));
