@@ -30,9 +30,9 @@
 				 CopyToPublishDirectory="PreserveNewest" />
 	</ItemGroup>
 
-<Target Name="EsBuild" AfterTargets="Build">
+<!-- <Target Name="EsBuild" AfterTargets="Build">
     <Exec Command="npm run build-js" />
-</Target>
+</Target> --> 
 
 
 </Project>

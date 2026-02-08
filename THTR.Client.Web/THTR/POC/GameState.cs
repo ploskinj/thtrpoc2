@@ -1,14 +1,15 @@
 ﻿using MessagePack;
+using System.Collections.Concurrent;
 
 namespace THTR.Client.Web.THTR.POC
 {
     public class POCGameState
     {
-        List<PocPlayer> players = new List<PocPlayer>();
+        ConcurrentDictionary<string, PlayerState> players = new ConcurrentDictionary<string, PlayerState>();
     }
 
     [MessagePackObject]
-    public class PocPlayer
+    public class PocPlayerClientDrawState
     {
         [Key(0)]
         public int player_id { get; set; }
@@ -27,7 +28,19 @@ namespace THTR.Client.Web.THTR.POC
         [Key(7)]
         public DIRECTIONS direction { get; set; }
     }
+
+
     
+
+    public class PlayerState
+    {
+        public string connection_id { get; set; } = string.Empty;
+        public bool up { get; set; } = false;
+        public bool down { get; set; } = false;
+        public bool left { get; set; } = false;
+        public bool right { get; set; } = false;
+        public bool attack { get; set; } = false;
+    }
 
 
     public enum PLAYERSTATES

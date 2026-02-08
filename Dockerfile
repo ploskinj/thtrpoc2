@@ -24,6 +24,7 @@ COPY . .
 
 # --- STAGE 2: TARGET WEB ---
 FROM build-env AS publish-web
+ENV BuildingInsideDocker=true
 
 # ** ADD THIS: Run esbuild to create minified files BEFORE publishing **
 RUN npm run build-js
