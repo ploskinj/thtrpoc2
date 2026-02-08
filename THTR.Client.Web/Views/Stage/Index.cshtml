@@ -5,8 +5,9 @@
     let _set_manager = null;
     let _set_avatar = null;
 
-    $(async function() {
-        
+    $(async function() {        
+        // MAKE SURE TO ALWAYS DO THIS IN THIS VIEW EVEN WHEN YOU MOVE
+        // TO STAGE MANAGER
         await THTR.Init();
 
         console.log('THTR:', THTR);
